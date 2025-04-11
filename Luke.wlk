@@ -12,7 +12,7 @@ object luke {
     method cuantosViajes() = cantidadDeViajes
 
     method Viajar(lugar) {
-        if (lugar.puedeLlegar()) {
+        if (self.esPosibleViajarA_(lugar)) {
             cantidadDeViajes = cantidadDeViajes + 1
             recuerdo = lugar.recuerdoTipico()
             self.autoActual().ConsumirCombustible()
@@ -22,5 +22,15 @@ object luke {
 
     method CambiarAuto(autoNuevo) {
         autoActual = autoNuevo
+    }
+
+    method esPosibleViajarA_(lugar) {
+        return
+            lugar.puedeLlegar()
+    }
+
+    method tienePlata() {
+        return
+            cantidadDeViajes > 3
     }
 }

@@ -1,0 +1,104 @@
+import elAlambiqueViajero1-Kiguez.Autos.*
+import elAlambiqueViajero1-Kiguez.Lugares.*
+import elAlambiqueViajero1-Kiguez.Luke.*
+test "Luke visito 2 lugares y el combustible de su auto bajo a 80" {
+  luke.Viajar(bagdad)
+  luke.Viajar(buenosAires)
+  assert.equals(2, luke.cuantosViajes())
+  assert.equals(80 , luke.autoActual().combustible())
+}
+
+test "Luke visito paris y se trajo un llavero de recuerdo" {
+  luke.Viajar(paris)
+  assert.equals("Llavero De Torre Eifel", luke.recuerdo())
+}
+
+test "Luke visito bagdad y se trajo su respectivo recuerdo" {
+  luke.Viajar(bagdad)
+  assert.equals("Armas De Destruccion Masiva", luke.recuerdo())
+}
+
+test "Luke visito bagdad, hubo cambio de presidente, despues visito buenos aires y le dieron de 
+      recuerdo un mate sin yerba (prueba hecha para testear varias cosas en una, sin intento de
+      hacer referencias politicas)" {
+    luke.Viajar(bagdad)
+    buenosAires.cambioDePresidente()
+    luke.Viajar(buenosAires)
+    assert.equals("mate sin yerba" , luke.recuerdo())
+}
+
+test "Luke visito las vegas mientras homenajeaban a bagdad justo cuando en este lugar empezaron a dar como 
+      recuerdo bidones de petroleo crudo" {
+
+  bagdad.CambiarRecuerdo("bidon de petroleo crudo")
+  lasVegas.homenajeA(bagdad)
+  luke.Viajar(lasVegas)
+  assert.equals("bidon de petroleo crudo", luke.recuerdo())
+  
+}
+
+test "Luke realizo muchos viajes y no tiene suficiente combustible para ir a paris" {
+  luke.Viajar(buenosAires)
+  luke.Viajar(buenosAires)
+  luke.Viajar(buenosAires)
+  luke.Viajar(buenosAires)
+  luke.Viajar(buenosAires)
+  luke.Viajar(buenosAires)
+  luke.Viajar(buenosAires)
+  luke.Viajar(buenosAires)
+  luke.Viajar(buenosAires)
+  luke.Viajar(buenosAires)
+  assert.notThat(luke.esPosibleViajarA_(paris))
+}
+
+test "Luke eligio el auto superConvertible y viajo a bagdad en donde este subio su techo por la cantidad
+      de gangsters volviendose lento, sin embargo ahora no puede ir a las vegas porque estan
+      homenajeando a buenos aires y su auto ya no es rapido" {
+  luke.CambiarAuto(superConvertible)
+  luke.Viajar(bagdad)
+  lasVegas.homenajeA(buenosAires)
+  assert.notThat(luke.esPosibleViajarA_(lasVegas))
+}
+
+test "Luke eligio el auto antiguallaBlindada y viajo a paris donde se subieron 8 gangsters sin embargo
+      como el peso no es suficiente, el auto todavia es rapido, este pudo ir a buenos aires donde le dieron
+      como recuerdo un mate con yerba y ahora tiene 23 gangsters a bordo" {
+  luke.CambiarAuto(antiguallaBlindada)
+  luke.Viajar(paris)
+  luke.Viajar(buenosAires)
+  assert.equals("mate con yerba" , luke.recuerdo()) 
+  assert.equals(23 , luke.autoActual().cantidadDeGangsters())
+}
+
+test "Luke eligio el auto super chatarra especial, viajo a 3 destinos y despues quiso ir a emiratos arabes
+       sin embargo no lo dejaron entrar porque gasto mucho combustible usando sus cañones" {
+  luke.CambiarAuto(superChatarraEspecial)
+  luke.Viajar(buenosAires)
+  luke.Viajar(paris)
+  luke.Viajar(bagdad)
+  assert.notThat(luke.esPosibleViajarA_(emiratos_Arabes))
+}
+
+test "Luke eligio el auto super chatarra especial y dio 3 vueltas por buenos aires eliminando a 45 gangsters
+      Por lo tanto le quedan 55 balas y 25 de combustible" {
+    luke.CambiarAuto(superChatarraEspecial)
+    luke.Viajar(buenosAires)
+    luke.Viajar(buenosAires)
+    luke.Viajar(buenosAires)
+    assert.equals(55, luke.autoActual().balas())
+    assert.equals(25, luke.autoActual().combustible())
+}
+
+test "Luke viajo con el alambique 3 veces a paris y despues fue a emiratos arabes, donde se trajo de 
+      de recuerdo el llavero de oro porque tenia plata" {
+    luke.Viajar(paris)
+    luke.Viajar(paris)
+    luke.Viajar(paris)
+    luke.Viajar(emiratos_Arabes)
+    assert.equals("llavero del Burj Khalifa hecho de oro", luke.recuerdo())
+}
+
+test "Luke viajo a emiratos arabes, pero como no tenia plata se trajo de recuerdo un llavero comun" {
+  luke.Viajar(emiratos_Arabes)
+  assert.equals("llavero del Burj Khalifa hecho de plastico", luke.recuerdo())
+}
